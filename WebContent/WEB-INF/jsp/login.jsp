@@ -52,8 +52,8 @@
 	<div id="login">
 		<form action="user/login.action" method="post">
 			<div id="form-title">账号密码登录</div>
-			<input type="text" placeholder="用户名" name="username" class="login-input" id="name" />
-			<input type="password" placeholder="密码" name="password" class="login-input" /><br/>
+			<input type="text" placeholder="用户名" name="username" class="login-input" id="name" required/>
+			<input type="password" placeholder="密码" name="password" class="login-input" required/><br/>
 <!-- 			<input type="checkbox" class="input" /><span class="ck_text">下次自动登录</span> -->
 			<input type="submit" value="登录" class="login-btn" /><br/>
 <!-- 			<div id="a_div"> -->
