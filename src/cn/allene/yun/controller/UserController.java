@@ -1,6 +1,7 @@
 package cn.allene.yun.controller;
 
 import java.io.PrintWriter;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,11 +11,15 @@ import net.sf.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
 
 import cn.allene.yun.pojo.User;
 import cn.allene.yun.service.FileService;
 import cn.allene.yun.service.UserService;
+import cn.allene.yun.utils.GithubUtils;
 
 @Controller
 @RequestMapping("/user")
@@ -165,5 +170,35 @@ public class UserController {
 		writer.println(object.toString());
 		writer.flush();
 		writer.close();
+	}
+	
+	@RequestMapping(value = "/authorization_code", method = RequestMethod.GET)
+	public String authorization_code(String code, Model model, HttpServletRequest request) {
+		System.out.println(code);
+		Map json = null;
+		try {
+			json = GithubUtils.getJson(code);
+		} catch (Exception e) {
+			model.addAttribute("err", e.getMessage());
+			return "error";
+		}
+		String name = "githubUser_" + (String) json.get("login");
+		User exsitUser = userService.findUser(name);
+		if (exsitUser == null) {
+			exsitUser = new User();
+			exsitUser.setUsername(name);
+			exsitUser.setPassword(name);
+			boolean isSuccess = userService.addUser(exsitUser);
+			if (isSuccess) {
+				fileService.addNewNameSpace(request, exsitUser.getUsername());
+			} else {
+				model.addAttribute("err", "注册失败");
+				return "error";
+			}
+		}
+		HttpSession session = request.getSession();
+		session.setAttribute(User.NAMESPACE, exsitUser.getUsername());
+		session.setAttribute("totalSize", exsitUser.getTotalSize());
+		return "redirect:/index.action";
 	}
 }
