@@ -51,7 +51,8 @@ public class UserController {
 	 */
 	@RequestMapping("/regist")
 	public String regist(HttpServletRequest request, User user){
-		if(user.getUsername() == null || user.getPassword() == null){
+		if(user.getUsername() == null || user.getPassword() == null || user.getUsername() == ""
+				|| user.getPassword() == ""){
 			return "regist";
 		}else{
 			boolean isSuccess = userService.addUser(user);

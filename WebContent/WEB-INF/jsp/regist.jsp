@@ -43,7 +43,7 @@
 				<dl>
 					<dt>用户名</dt> 
 					<dd class="ipt_box">
-						<input id="usr" name="username" type="text" placeholder="请设置用户名" /> <span
+						<input id="usr" name="username" type="text" placeholder="请设置用户名" required="required"/> <span
 							class="clear"></span>
 					</dd>
 					<dd class="mes">
@@ -59,7 +59,7 @@
 				<dl>
 					<dt>密码</dt>
 					<dd class="ipt_box">
-						<input id="pwd" name="password" type="password" placeholder="请设置登录密码" />
+						<input id="pwd" name="password" type="password" placeholder="请设置登录密码" required="required"/>
 						<span class="clear"></span>
 					</dd>
 					<dd class="mes">
