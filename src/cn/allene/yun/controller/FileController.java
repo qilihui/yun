@@ -418,13 +418,14 @@ public class FileController {
 
 	/*--存储回收站所有删除文件信息，并返回给recycle.jsp--*/
 	@RequestMapping("/recycleFile")
-	public String recycleFile() {
+	public String recycleFile(Model model) {
 		try {
 			List<RecycleFile> findDelFile = fileService.recycleFiles(request);
 			// 返回的删除文件若没有，则不设置findDelFile
 			if (null != findDelFile && findDelFile.size() != 0) {
 				request.setAttribute("findDelFile", findDelFile);
 			}
+			model.addAttribute("countSize", fileService.getRecycleSize(request));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

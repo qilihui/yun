@@ -52,7 +52,7 @@ public class UserController {
 		if (exsitUser != null) {
 			HttpSession session = request.getSession();
 			//这段代码放到你的登录请求中，获取用户输入的校验码并进行比较
-			String verifyCode = request.getParameter("verifyCode");
+			String verifyCode = request.getParameter("verifyCode").toLowerCase();
 			String sessionVerifyCode = (String) session.getAttribute("verifyCodeValue");
 			if (!verifyCode.equalsIgnoreCase(sessionVerifyCode)) {
 				request.setAttribute("msg", "验证码错误");
@@ -83,7 +83,7 @@ public class UserController {
 	public String regist(HttpServletRequest request, User user){
 		HttpSession session = request.getSession();
 		//获取用户输入的校验码并进行比较
-		String verifyCode = request.getParameter("verifyCode");
+		String verifyCode = request.getParameter("verifyCode").toLowerCase();
 		String sessionVerifyCode = (String) session.getAttribute("verifyCodeValue");
 		if (!verifyCode.equalsIgnoreCase(sessionVerifyCode)) {
 			request.setAttribute("msg", "验证码错误");
@@ -289,7 +289,7 @@ public class UserController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return code;
+        return code.toLowerCase();
     }
 
     /* 获取随机参数 */

@@ -52,10 +52,8 @@ public class FileService {
 	 * 上传文件
 	 * 
 	 * @param request
-	 * @param files
-	 *            文件
-	 * @param currentPath
-	 *            当前路径
+	 * @param files       文件
+	 * @param currentPath 当前路径
 	 * @throws Exception
 	 */
 	public void uploadFilePath(HttpServletRequest request, MultipartFile[] files, String currentPath) throws Exception {
@@ -68,8 +66,9 @@ public class FileService {
 				if ("office".equals(FileUtils.getFileType(distFile))) {
 					try {
 						String suffix = fileName.substring(fileName.lastIndexOf(".") + 1);
-						String documentId = FileUtils.getDocClient().createDocument(distFile, fileName, suffix)
-								.getDocumentId();
+//						String documentId = FileUtils.getDocClient().createDocument(distFile, fileName, suffix)
+//								.getDocumentId();
+						String documentId = "test";
 						officeDao.addOffice(documentId, FileUtils.MD5(distFile));
 					} catch (Exception e) {
 					}
@@ -78,33 +77,32 @@ public class FileService {
 		}
 		reSize(request);
 	}
-	
+
 	/**
 	 * 上传文件(安卓接口)
 	 * 
 	 * @param request
-	 * @param files
-	 *            文件
-	 * @param currentPath
-	 *            当前路径
+	 * @param files       文件
+	 * @param currentPath 当前路径
 	 * @throws Exception
 	 */
-	public void uploadFilePathExt(HttpServletRequest request, MultipartFile file, String currentPath,String username) throws Exception {
-			String fileName = file.getOriginalFilename();
-			String filePath = getFileName(request, currentPath,username);
-			File distFile = new File(filePath, fileName);
-			if (!distFile.exists()) {
-				file.transferTo(distFile);
-				if ("office".equals(FileUtils.getFileType(distFile))) {
-					try {
-						String suffix = fileName.substring(fileName.lastIndexOf(".") + 1);
-						String documentId = FileUtils.getDocClient().createDocument(distFile, fileName, suffix)
-								.getDocumentId();
-						officeDao.addOffice(documentId, FileUtils.MD5(distFile));
-					} catch (Exception e) {
-					}
+	public void uploadFilePathExt(HttpServletRequest request, MultipartFile file, String currentPath, String username)
+			throws Exception {
+		String fileName = file.getOriginalFilename();
+		String filePath = getFileName(request, currentPath, username);
+		File distFile = new File(filePath, fileName);
+		if (!distFile.exists()) {
+			file.transferTo(distFile);
+			if ("office".equals(FileUtils.getFileType(distFile))) {
+				try {
+					String suffix = fileName.substring(fileName.lastIndexOf(".") + 1);
+					String documentId = FileUtils.getDocClient().createDocument(distFile, fileName, suffix)
+							.getDocumentId();
+					officeDao.addOffice(documentId, FileUtils.MD5(distFile));
+				} catch (Exception e) {
 				}
 			}
+		}
 		reSize(request);
 	}
 
@@ -123,12 +121,9 @@ public class FileService {
 	 * 下载文件打包
 	 * 
 	 * @param request
-	 * @param currentPath
-	 *            当前路径
-	 * @param fileNames
-	 *            文件名
-	 * @param username
-	 *            用户名
+	 * @param currentPath 当前路径
+	 * @param fileNames   文件名
+	 * @param username    用户名
 	 * @return 打包的文件对象
 	 * @throws Exception
 	 */
@@ -265,12 +260,11 @@ public class FileService {
 	/**
 	 * 获取路径下的文件类别
 	 * 
-	 * @param realPath
-	 *            路径
+	 * @param realPath 路径
 	 * @return
 	 */
 	public List<FileCustom> listFile(String realPath) {
-		//对文件操作  需要new出一个文件，代表指向该文件内存地址
+		// 对文件操作 需要new出一个文件，代表指向该文件内存地址
 		File[] files = new File(realPath).listFiles();
 		List<FileCustom> lists = new ArrayList<FileCustom>();
 		if (files != null) {
@@ -295,17 +289,15 @@ public class FileService {
 		return lists;
 	}
 
-	
 	/**
 	 * 获取路径下的文件类别
 	 * 
-	 * @param realPath
-	 *            路径
+	 * @param realPath 路径
 	 * @return
 	 */
-	public List<FileCustom> listFileForApp(String realPath,HttpServletRequest request,String username) {
-		String preFix = getRootPath(request) + username + File.separator; 
-		//对文件操作  需要new出一个文件，代表指向该文件内存地址
+	public List<FileCustom> listFileForApp(String realPath, HttpServletRequest request, String username) {
+		String preFix = getRootPath(request) + username + File.separator;
+		// 对文件操作 需要new出一个文件，代表指向该文件内存地址
 		File[] files = new File(realPath).listFiles();
 		List<FileCustom> lists = new ArrayList<FileCustom>();
 		if (files != null) {
@@ -330,6 +322,7 @@ public class FileService {
 		}
 		return lists;
 	}
+
 	//
 	// public List<FileCustom> searchFile(HttpServletRequest request, String
 	// currentPath, String reg) {
@@ -341,12 +334,9 @@ public class FileService {
 	 * 查找文件
 	 * 
 	 * @param request
-	 * @param currentPath
-	 *            当前路径
-	 * @param reg
-	 *            文件名字
-	 * @param regType
-	 *            文件类型
+	 * @param currentPath 当前路径
+	 * @param reg         文件名字
+	 * @param regType     文件类型
 	 * @return
 	 */
 	public List<FileCustom> searchFile(HttpServletRequest request, String currentPath, String reg, String regType) {
@@ -388,10 +378,8 @@ public class FileService {
 	/**
 	 * 移动的文件列表
 	 * 
-	 * @param realPath
-	 *            路径
-	 * @param number
-	 *            该路径下的文件数量
+	 * @param realPath 路径
+	 * @param number   该路径下的文件数量
 	 * @return
 	 */
 	public SummaryFile summarylistFile(String realPath, int number) {
@@ -406,12 +394,12 @@ public class FileService {
 			} else {
 				String path = file.getPath();
 				sF.setfileName(file.getName());
-				//截取固定长度 的字符串，从number开始到value.length-number结束.
+				// 截取固定长度 的字符串，从number开始到value.length-number结束.
 				sF.setPath(path.substring(number));
 			}
 			/* 设置抽象文件夹的包含文件集合 */
 			for (File filex : file.listFiles()) {
-				//获取当前文件的路径，构造该文件
+				// 获取当前文件的路径，构造该文件
 				SummaryFile innersF = summarylistFile(filex.getPath(), number);
 				if (!innersF.getisFile()) {
 					returnlist.add(innersF);
@@ -431,10 +419,8 @@ public class FileService {
 	 * 新建文件夹
 	 * 
 	 * @param request
-	 * @param currentPath
-	 *            当前路径
-	 * @param directoryName
-	 *            文件夹名
+	 * @param currentPath   当前路径
+	 * @param directoryName 文件夹名
 	 * @return
 	 */
 	public boolean addDirectory(HttpServletRequest request, String currentPath, String directoryName) {
@@ -444,12 +430,12 @@ public class FileService {
 
 	/*--回收站显示所有删除文件--*/
 	public List<RecycleFile> recycleFiles(HttpServletRequest request) throws Exception {
-		//将本用户所有删除文件获取
+		// 将本用户所有删除文件获取
 		List<RecycleFile> recycleFiles = fileDao.selectFiles(UserUtils.getUsername(request));
 		for (RecycleFile file : recycleFiles) {
-			//一次实例化所有文件对象
+			// 一次实例化所有文件对象
 			File f = new File(getRecyclePath(request), new File(file.getFilePath()).getName());
-			//此时设置该文件名与文件最后删除的时间
+			// 此时设置该文件名与文件最后删除的时间
 			file.setFileName(f.getName());
 			file.setLastTime(FileUtils.formatTime(f.lastModified()));
 		}
@@ -459,11 +445,11 @@ public class FileService {
 	/* 删除回收站的文件 */
 	public void delRecycle(HttpServletRequest request, int[] fileId) throws Exception {
 		for (int i = 0; i < fileId.length; i++) {
-			//获取每个删除文件的id，同时获取该文件对象
+			// 获取每个删除文件的id，同时获取该文件对象
 			RecycleFile selectFile = fileDao.selectFile(fileId[i]);
-			//根据每个删除文件的相对路径拼接绝对路径
+			// 根据每个删除文件的相对路径拼接绝对路径
 			File srcFile = new File(getRecyclePath(request), selectFile.getFilePath());
-			//逐一删除数据库所存数据以及该文件
+			// 逐一删除数据库所存数据以及该文件
 			fileDao.deleteFile(fileId[i], UserUtils.getUsername(request));
 			delFile(srcFile);
 		}
@@ -472,14 +458,14 @@ public class FileService {
 
 	/*--依次遍历recycle下各个文件，并删除--*/
 	public void delAllRecycle(HttpServletRequest request) throws Exception {
-		//获取回收站中的所有文件
+		// 获取回收站中的所有文件
 		File file = new File(getRecyclePath(request));
-		//便利文件夹下所有文件
+		// 便利文件夹下所有文件
 		File[] inferiorFile = file.listFiles();
 		for (File f : inferiorFile) {
 			delFile(f);
 		}
-		//根据用户进行删除
+		// 根据用户进行删除
 		fileDao.deleteFiles(UserUtils.getUsername(request));
 		reSize(request);
 	}
@@ -488,42 +474,40 @@ public class FileService {
 	 * 删除文件
 	 * 
 	 * @param request
-	 * @param currentPath
-	 *            当前路径
-	 * @param directoryName
-	 *            文件名
+	 * @param currentPath   当前路径
+	 * @param directoryName 文件名
 	 * @throws Exception
 	 */
 	public void delDirectory(HttpServletRequest request, String currentPath, String[] directoryName) throws Exception {
 		for (String fileName : directoryName) {
-			//拼接源文件的地址
+			// 拼接源文件的地址
 			String srcPath = currentPath + File.separator + fileName;
-			//根据源文件相对地址拼接 绝对路径
+			// 根据源文件相对地址拼接 绝对路径
 			File src = new File(getFileName(request, srcPath));
 			File dest = new File(getRecyclePath(request));
-			//调用commons  jar包中的moveToDirectory移动文件
+			// 调用commons jar包中的moveToDirectory移动文件
 			org.apache.commons.io.FileUtils.moveToDirectory(src, dest, true);
 			fileDao.insertFiles(srcPath, UserUtils.getUsername(request));
 			/*--将删除文件移动到recycle目录下*/
 			// moveDirectory(request,currentPath,directoryName,User.RECYCLE);
 		}
-		//重新计算文件大小
+		// 重新计算文件大小
 		reSize(request);
 	}
 
 	/* 还原文件 */
-	//难点2.还原文件时不等同于移动文件到，因为还原文件需要保存多个地址，而还原只单纯保存一个地址
-	//而且还原时需要判断父子文件是否都删除了，此时就需要新建立父文件，再建立子文件，而commons.io.FileUtils
-	//则可以很好的解决问题
+	// 难点2.还原文件时不等同于移动文件到，因为还原文件需要保存多个地址，而还原只单纯保存一个地址
+	// 而且还原时需要判断父子文件是否都删除了，此时就需要新建立父文件，再建立子文件，而commons.io.FileUtils
+	// 则可以很好的解决问题
 	public void revertDirectory(HttpServletRequest request, int[] fileId) throws Exception {
 		for (int id : fileId) {
-			//根据要还原的文件id获得文件
+			// 根据要还原的文件id获得文件
 			RecycleFile file = fileDao.selectFile(id);
-			//获取该文件的文件名
+			// 获取该文件的文件名
 			String fileName = new File(file.getFilePath()).getName();
-			//根据文件名获取源文件地址
+			// 根据文件名获取源文件地址
 			File src = new File(getRecyclePath(request), fileName);
-			//getFileName获取该文件删除时所保存的地址
+			// getFileName获取该文件删除时所保存的地址
 			File dest = new File(getFileName(request, file.getFilePath()));
 			org.apache.commons.io.FileUtils.moveToDirectory(src, dest.getParentFile(), true);
 			fileDao.deleteFile(id, UserUtils.getUsername(request));
@@ -533,8 +517,7 @@ public class FileService {
 	/**
 	 * 删除文件
 	 * 
-	 * @param srcFile
-	 *            源文件
+	 * @param srcFile 源文件
 	 * @throws Exception
 	 */
 	private void delFile(File srcFile) throws Exception {
@@ -571,9 +554,9 @@ public class FileService {
 	 * @return
 	 */
 	public boolean renameDirectory(HttpServletRequest request, String currentPath, String srcName, String destName) {
-		//根据源文件名  获取  源地址
+		// 根据源文件名 获取 源地址
 		File file = new File(getFileName(request, currentPath), srcName);
-		//同上
+		// 同上
 		File descFile = new File(getFileName(request, currentPath), destName);
 		return file.renameTo(descFile);
 	}
@@ -597,8 +580,7 @@ public class FileService {
 	/**
 	 * copy文件
 	 * 
-	 * @param srcFile
-	 *            源文件
+	 * @param srcFile        源文件
 	 * @param targetFile目标文件
 	 * @throws IOException
 	 */
@@ -664,12 +646,9 @@ public class FileService {
 	 * 移动文件
 	 * 
 	 * @param request
-	 * @param currentPath
-	 *            当前路径
-	 * @param directoryName
-	 *            文件名
-	 * @param targetdirectorypath
-	 *            目标路径
+	 * @param currentPath         当前路径
+	 * @param directoryName       文件名
+	 * @param targetdirectorypath 目标路径
 	 * @throws Exception
 	 */
 	public void moveDirectory(HttpServletRequest request, String currentPath, String[] directoryName,
@@ -711,8 +690,7 @@ public class FileService {
 	/**
 	 * 递归统计用户文件大小
 	 * 
-	 * @param srcFile
-	 *            位置
+	 * @param srcFile 位置
 	 * @return
 	 */
 	private long countFileSize(File srcFile) {
@@ -739,7 +717,8 @@ public class FileService {
 	 */
 	public String countFileSize(HttpServletRequest request) {
 		long countFileSize = countFileSize(new File(getFileName(request, null)));
-		return FileUtils.getDataSize(countFileSize);
+		long recycleFileSize = countFileSize(new File(getFileName(request, "/recycle")));
+		return FileUtils.getDataSize(countFileSize - recycleFileSize);
 	}
 
 	/**
@@ -765,12 +744,9 @@ public class FileService {
 	 * 
 	 * @param response
 	 * @param request
-	 * @param currentPath
-	 *            当前路径
-	 * @param fileName
-	 *            文件名
-	 * @param type
-	 *            文件类型
+	 * @param currentPath 当前路径
+	 * @param fileName    文件名
+	 * @param type        文件类型
 	 * @throws IOException
 	 */
 	public void respFile(HttpServletResponse response, HttpServletRequest request, String currentPath, String fileName,
@@ -796,5 +772,10 @@ public class FileService {
 	 */
 	public String openOffice(HttpServletRequest request, String currentPath, String fileName) throws Exception {
 		return officeDao.getOfficeId(FileUtils.MD5(new File(getFileName(request, currentPath), fileName)));
+	}
+	
+	public String getRecycleSize(HttpServletRequest request) {
+		long recycleFileSize = countFileSize(new File(getFileName(request, "/recycle")));
+		return FileUtils.getDataSize(recycleFileSize);
 	}
 }
