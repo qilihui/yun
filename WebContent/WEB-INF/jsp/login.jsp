@@ -59,6 +59,11 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				class="login-input" id="name" /> <input type="password"
 				placeholder="密码" name="password" class="login-input" /><br />
 			<!-- 			<input type="checkbox" class="input" /><span class="ck_text">下次自动登录</span> -->
+				<div style="position:relative">
+        			<input style="width:100px;height:35px;margin-left:20px;" type="text" id="verifyCode" name="verifyCode" placeholder="验证码" maxlength="4">
+         			<img style="position: absolute;left:140px;top: 0;" src="${pageContext.request.contextPath }/user/getVerifyCode.action" 
+         				width="110" height="34" id="verifyCodeImage" onclick="javascript:changeImage();">
+         		</div>
 			<input type="submit" value="登录" class="login-btn" /><br />
 			<!-- 			<div id="a_div"> -->
 			<!-- 				<a href="#" class="a_login">登录遇到问题</a> <a class="a_login" href="#" -->
@@ -91,11 +96,14 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 			</div>
 		</form>
 	</div>
-</body>
 <script type="text/javascript">
 	function regist() {
 		window.location.href = "user/regist.action";
 		return false;
 	}
+	function changeImage() {
+	      $('#verifyCodeImage').attr('src', '${pageContext.request.contextPath }/user/getVerifyCode.action');
+	 }
 </script>
+</body>
 </html>

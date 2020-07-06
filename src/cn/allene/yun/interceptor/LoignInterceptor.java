@@ -31,7 +31,7 @@ public class LoignInterceptor implements HandlerInterceptor {
 				|| url.indexOf("regist.action") >= 0 || url.indexOf("share.action") >= 0
 				|| url.indexOf("getShareFiles.action") >= 0 || url.indexOf("download.action") >= 0
 				|| url.indexOf("loginForApp.action") >= 0 || url.indexOf("getAppFiles.action") >= 0
-				|| url.indexOf("uploadForApp.action") >= 0) {
+				|| url.indexOf("uploadForApp.action") >= 0 || url.indexOf("getVerifyCode.action")>=0) {
 			return true;
 		}
 

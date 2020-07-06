@@ -1,13 +1,22 @@
 package cn.allene.yun.controller;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics2D;
+import java.awt.font.FontRenderContext;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Map;
+import java.util.Random;
 
+import javax.imageio.ImageIO;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import net.sf.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,11 +24,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-
 import cn.allene.yun.pojo.User;
 import cn.allene.yun.service.FileService;
 import cn.allene.yun.service.UserService;
 import cn.allene.yun.utils.GithubUtils;
+import net.sf.json.JSONObject;
 
 @Controller
 @RequestMapping("/user")
@@ -40,9 +49,18 @@ public class UserController {
 		User exsitUser = userService.findUser(user);
 		if(exsitUser != null){
 			HttpSession session = request.getSession();
+			//这段代码放到你的登录请求中，获取用户输入的校验码并进行比较
+			String verifyCode = request.getParameter("verifyCode");
+			String sessionVerifyCode = (String) session.getAttribute("verifyCodeValue");
+			if (!verifyCode.equalsIgnoreCase(sessionVerifyCode)) {
+				request.setAttribute("msg", "验证码错误");
+				System.out.println("验证码错误");
+				return "login";
+			}
 			session.setAttribute(User.NAMESPACE, exsitUser.getUsername());
 			session.setAttribute("totalSize", exsitUser.getTotalSize());
 			return "redirect:/index.action";
+			
 		}else{
 			request.setAttribute("msg", "用户名或密码错误");
 			return "login";
@@ -54,8 +72,21 @@ public class UserController {
 	 * @param user
 	 * @return
 	 */
-	@RequestMapping("/regist")
+	@RequestMapping(value="/regist",method=RequestMethod.GET)
+	public String toRegist(){
+		return "regist";
+	}
+	@RequestMapping(value="/regist",method=RequestMethod.POST)
 	public String regist(HttpServletRequest request, User user){
+		HttpSession session = request.getSession();
+		//获取用户输入的校验码并进行比较
+		String verifyCode = request.getParameter("verifyCode");
+		String sessionVerifyCode = (String) session.getAttribute("verifyCodeValue");
+		if (!verifyCode.equalsIgnoreCase(sessionVerifyCode)) {
+			request.setAttribute("msg", "验证码错误");
+			System.out.println("验证码错误");
+			return "regist";
+		}
 		if(user.getUsername() == null || user.getPassword() == null || user.getUsername() == ""
 				|| user.getPassword() == ""){
 			return "regist";
@@ -201,4 +232,63 @@ public class UserController {
 		session.setAttribute("totalSize", exsitUser.getTotalSize());
 		return "redirect:/index.action";
 	}
+	
+	/* 获取校验码 */
+    @RequestMapping("/getVerifyCode")
+    public void generate(HttpServletResponse response, HttpSession session) {
+    	System.out.println("验证码");
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        String verifyCodeValue = drawImg(output);
+        // 将校验码保存到session中
+        session.setAttribute("verifyCodeValue", verifyCodeValue);
+        try {
+            ServletOutputStream out = response.getOutputStream();
+            output.writeTo(out);
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
+    }
+
+    /* 绘制验证码 */
+    private String drawImg(ByteArrayOutputStream output) {
+        String code = "";
+        // 随机产生4个字符
+        for (int i = 0; i < 4; i++) {
+            code += randomChar();
+        }
+        int width = 70;
+        int height = 25;
+        BufferedImage bi = new BufferedImage(width, height,
+                BufferedImage.TYPE_3BYTE_BGR);
+        Font font = new Font("Times New Roman", Font.PLAIN, 20);
+        // 调用Graphics2D绘画验证码
+        Graphics2D g = bi.createGraphics();
+        g.setFont(font);
+        Color color = new Color(66, 2, 82);
+        g.setColor(color);
+        g.setBackground(new Color(226, 226, 240));
+        g.clearRect(0, 0, width, height);
+        FontRenderContext context = g.getFontRenderContext();
+        Rectangle2D bounds = font.getStringBounds(code, context);
+        double x = (width - bounds.getWidth()) / 2;
+        double y = (height - bounds.getHeight()) / 2;
+        double ascent = bounds.getY();
+        double baseY = y - ascent;
+        g.drawString(code, (int) x, (int) baseY);
+        g.dispose();
+        try {
+            ImageIO.write(bi, "jpg", output);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return code;
+    }
+
+    /* 获取随机参数 */
+    private char randomChar() {
+        Random r = new Random();
+        String s = "ABCDEFGHJKLMNPRSTUVWXYZ0123456789";
+        return s.charAt(r.nextInt(s.length()));
+    }
 }

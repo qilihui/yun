@@ -76,7 +76,16 @@
 						</ul>
 					</dd>
 				</dl>
-
+				<dl>
+					<dt>验证码</dt>
+					<dd class="ipt_box">
+						<div style="position:relative">
+        					<input style="width:100px;height:35px;margin-left:20px;" type="text" id="verifyCode" name="verifyCode" placeholder="验证码" maxlength="4">
+         					<img style="position: absolute;left:140px;top: 0;" src="${pageContext.request.contextPath }/user/getVerifyCode.action" 
+         					width="110" height="34" id="verifyCodeImage" onclick="javascript:changeImage();">
+         				</div>
+					</dd>
+				</dl>
 				<dl>
 					<dt></dt>
 					<dd class="ipt_box pro">
@@ -113,7 +122,7 @@
 
 	<!--footer开始-->
 	<div class="footer">
-		<p>2017 ©XXXXXX</p>
+		<p>2020 ©6班9组</p>
 	</div>
 </body>
 </html>
