@@ -6,9 +6,18 @@ package cn.allene.yun.pojo;
  */
 public class RecycleFile extends FileCustom {
 	private Integer fileId;
+	private String deleteTime;
 
 	public Integer getFileId() {
 		return fileId;
+	}
+
+	public String getDeleteTime() {
+		return deleteTime;
+	}
+
+	public void setDeleteTime(String deleteTime) {
+		this.deleteTime = deleteTime;
 	}
 
 	public void setFileId(Integer fileId) {

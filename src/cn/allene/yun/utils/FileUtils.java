@@ -42,7 +42,6 @@ public class FileUtils {
 	public static String formatTime(long time){
 		return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(time));
 	}
-	
 	public static String getUrl8(){
 		return UUID.randomUUID().toString().replace("-", "").substring(0, 8);
 	}

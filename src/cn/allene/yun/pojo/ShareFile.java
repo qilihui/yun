@@ -7,7 +7,14 @@ package cn.allene.yun.pojo;
 public class ShareFile extends FileCustom {
 	private String shareUser;
 	private String url;
+	private String shareTime;
 	
+	public String getShareTime() {
+		return shareTime;
+	}
+	public void setShareTime(String shareTime) {
+		this.shareTime = shareTime;
+	}
 	public String getUrl() {
 		return url;
 	}

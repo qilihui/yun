@@ -481,7 +481,7 @@ var currentPath;
 					  }else{
 						  opreate += 'class="btn btn-warning">取消</button>';
 					  }
-					  $("#shareTable tbody").append('<tr><td><span class="glyphicon glyphicon-'+this.fileType+'" style="margin-right: 10px"></span>'+this.fileName+'</td><td>'+this.lastTime+'</td><td><input id="url" onFocus="copyUrl(this)" title="' + joinUrl(this.url) + '" value="' + joinUrl(this.url) + '" class="form-control" readonly="readonly"/></td><td>'+opreate+'</td></tr>');
+					 
 				  });
 				   
 			  }

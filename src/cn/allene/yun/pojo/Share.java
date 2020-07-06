@@ -16,7 +16,15 @@ public class Share {
 	private String path;
 	private String command;
 	private int status;
+	private String shareTime;
 	
+	
+	public String getShareTime() {
+		return shareTime;
+	}
+	public void setShareTime(String shareTime) {
+		this.shareTime = shareTime;
+	}
 	public int getStatus() {
 		return status;
 	}
