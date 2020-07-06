@@ -32,4 +32,12 @@
 		update user set countSize = #{formatSize} where
 		username = #{username}
 	</update>
+	
+	<update id="updateUser" parameterType="cn.allene.yun.pojo.User">
+		update user set password=#{password} where username=#{username}
+	</update>
+	
+	<delete id="deleteUser" parameterType="String">
+		delete from user where username=#{username}
+	</delete>
 </mapper>
