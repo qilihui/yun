@@ -58,7 +58,7 @@ var currentPath;
 				$.each(data.data, function() {
 					$("#list").append('<tr><td><input onclick="selectCheckbox()" name="check_name" type="checkbox" aria-label="..."></td>' +
 						'<td width="60%"><a href="#" prePath="' + path +'" fileType="' + this.fileType +'" onclick="return openFile(this)"><span class="glyphicon glyphicon-'+this.fileType+'" style="margin-right: 10px"></span>' + this.fileName + '</a></td>' +
-						'<td width="32px">' +
+					'<td width="32px">' +
 						'</td>' +
 						'<td width="32px"><a href="#"' +
 						'class="glyphicon glyphicon-download-alt" title="下载" onclick="return downloadFile(this)"></a></td>' +
@@ -550,7 +550,6 @@ var currentPath;
 		var fileName = $(obj).text();
 		var parentPath = $(obj).attr("currentPath") == null ? currentPath : $(obj).attr("currentPath");
 		var url = encodeURI('currentPath='+parentPath+'&fileType='+fileType+'&fileName='+fileName);
-		//alert(url);
 		if (fileType == "folder-open") {
 			var prePath = $(obj).attr("prePath");
 			var path = prePath + "\\" + fileName;

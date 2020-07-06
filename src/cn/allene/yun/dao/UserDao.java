@@ -20,4 +20,8 @@ public interface UserDao {
 	User findUserByUserNameAndGithubId(@Param("username") String username,@Param("githubId") Integer githubId) throws Exception;
 
 	String getCountSize(String username) throws Exception;
+	
+	void updateUser(User user);
+	
+	void deleteUser(String username); 
 }

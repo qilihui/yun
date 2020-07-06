@@ -298,4 +298,27 @@ public class UserController {
         String s = "ABCDEFGHJKLMNPRSTUVWXYZ0123456789";
         return s.charAt(r.nextInt(s.length()));
     }
+    
+    @RequestMapping("/person")
+    public String person(HttpServletRequest request, Model model) {
+    	HttpSession session = request.getSession();
+    	String username = (String) session.getAttribute(User.NAMESPACE);
+    	User user = userService.findUser(username);
+    	model.addAttribute("user", user);
+    	return "person";
+    }
+    
+    @RequestMapping("/updateUser")
+    public String updateUser(User user) {
+    	userService.updateUser(user);
+    	return "login";
+    }
+    
+    @RequestMapping("/deleteUser")
+    public String deleteUser(HttpServletRequest request) {
+       	HttpSession session = request.getSession();
+    	String username = (String) session.getAttribute(User.NAMESPACE);
+    	userService.deleteUser(username);
+    	return "login";
+    }
 }

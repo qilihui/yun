@@ -18,7 +18,7 @@
 					<img src="${pageContext.request.contextPath }/img/titalpicture.jpg" height="20px" class="img-circle"/>
 					${username	 } <span class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li><a href="#">个人中心</a></li>
+						<li><a href="user/person.action">个人中心</a></li>
 						<li><a href="user/logout.action">退出登录</a></li>
 					</ul></li>
 				<li><a>|</a></li>

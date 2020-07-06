@@ -125,7 +125,7 @@ public class FileUtils {
 			BceClientConfiguration config = new BceClientConfiguration();
 			config.setConnectionTimeoutInMillis(3000);
 			config.setSocketTimeoutInMillis(2000);
-		    config.setCredentials(new DefaultBceCredentials("3f87852806b2406dad987f9139120c6e", "8d8e5fb70309411b8ad9a055fda6922b"));
+		    config.setCredentials(new DefaultBceCredentials("b4268cfa2cda48ddb873c04ca01cf837", "dffa42fad0a84acab1cfc7dfab5a852c"));
 		    docClient = new DocClient(config);
 		}
 	    return docClient;

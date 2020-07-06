@@ -71,4 +71,12 @@ public class UserService {
 		}
 		return countSize;
 	}
+	
+	public void updateUser(User user) {
+		userDao.updateUser(user);
+	}
+	
+	public void deleteUser(String username) {
+		userDao.deleteUser(username);
+	}
 }

@@ -109,7 +109,7 @@
 		</div>
 		<div style="padding: 0px 0px 0px 15px;margin: 100px 0px 0px 0px;">
 			<div class="progress" style="margin-bottom: 5px; margin-right: 15px">
-			  <div id="sizeprogress" class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em;">
+			  <div id="sizeprogress" class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="10" aria-valuemax="100" style="min-width: 2em;">
 			    60%
 			  </div>
 			</div>
