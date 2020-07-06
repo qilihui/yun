@@ -13,18 +13,7 @@ public class User {
 	private String password;
 	private String countSize;
 	private String totalSize;
-	public String getCountSize() {
-		return countSize;
-	}
-	public void setCountSize(String countSize) {
-		this.countSize = countSize;
-	}
-	public String getTotalSize() {
-		return totalSize;
-	}
-	public void setTotalSize(String totalSize) {
-		this.totalSize = totalSize;
-	}
+	private Integer githubId;
 	public Integer getId() {
 		return id;
 	}
@@ -43,4 +32,36 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public String getCountSize() {
+		return countSize;
+	}
+	public void setCountSize(String countSize) {
+		this.countSize = countSize;
+	}
+	public String getTotalSize() {
+		return totalSize;
+	}
+	public void setTotalSize(String totalSize) {
+		this.totalSize = totalSize;
+	}
+	public Integer getGithubId() {
+		return githubId;
+	}
+	public void setGithubId(Integer githubId) {
+		this.githubId = githubId;
+	}
+	public static String getNamespace() {
+		return NAMESPACE;
+	}
+	public static String getRecycle() {
+		return RECYCLE;
+	}
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", username=" + username + ", password=" + password + ", countSize=" + countSize
+				+ ", totalSize=" + totalSize + ", githubId=" + githubId + "]";
+	}
+	
+	
+	
 }
