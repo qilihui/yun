@@ -95,6 +95,7 @@ public class ShareService {
 				shareFile.setUrl(share.getShareUrl());
 				shareFile.setFilePath(share.getPath());
 				shareFile.setCommand(share.getCommand());
+				shareFile.setShareTime(share.getShareTime().substring(0, share.getShareTime().indexOf(".")));
 				files.add(shareFile);
 			}
 		}

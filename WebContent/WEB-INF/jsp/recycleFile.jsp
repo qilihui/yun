@@ -326,7 +326,7 @@
 										<img style="float: left;margin-left: 10px;" onclick="delFile(this)" class="addSrc" src="" />
 								</span>
 								<span style="width: 15%;height:100%;float:left;">${delFile.fileSize }</span>
-								<span style="width: 16%;height:100%;float:left">${delFile.lastTime }</span>
+								<span style="width: 16%;height:100%;float:left">${delFile.deleteTime }</span>
 								<span style="width: 12%;height:100%;float:left">10天</span>
 							</li>
 						</c:forEach>

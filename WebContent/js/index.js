@@ -528,7 +528,7 @@ var currentPath;
 								opreate +='<input onFocus="copyUrl(this)" title="' + this.command + '" value="' + this.command + '" class="form-control" readonly="readonly"/>';
 							}
 					  }
-					  $("#shareTable tbody").append('<tr><td><span class="glyphicon glyphicon-'+this.fileType+'" style="margin-right: 10px; width:200px; overflow:hidden;">'+this.fileName+'</span></td><td>'+this.lastTime+'</td><td><input id="url" onFocus="copyUrl(this)" title="' + joinUrl(this.url) + '" value="' + joinUrl(this.url) + '" class="form-control" readonly="readonly"/></td><td>'+opreate+'</td></tr>');
+					  $("#shareTable tbody").append('<tr><td><span class="glyphicon glyphicon-'+this.fileType+'" style="margin-right: 10px; width:200px; overflow:hidden;">'+this.fileName+'</span></td><td>'+this.shareTime+'</td><td><input id="url" onFocus="copyUrl(this)" title="' + joinUrl(this.url) + '" value="' + joinUrl(this.url) + '" class="form-control" readonly="readonly"/></td><td>'+opreate+'</td></tr>');
 				  });
 				   
 			  }
