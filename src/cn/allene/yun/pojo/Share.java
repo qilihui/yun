@@ -9,6 +9,7 @@ public class Share {
 	public static final int PRIVATE = 2;
 	public static final int CANCEL = 0;
 	public static final int DELETE = -1;
+	public static final int COMMANDBIT = 4;
 	
 	private String shareUrl;
 	private String shareId;

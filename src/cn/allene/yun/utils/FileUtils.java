@@ -46,6 +46,10 @@ public class FileUtils {
 	public static String getUrl8(){
 		return UUID.randomUUID().toString().replace("-", "").substring(0, 8);
 	}
+	
+	public static String getUrl(Integer bit){
+		return UUID.randomUUID().toString().replace("-", "").substring(0, bit);
+	}
 	public final static Map<String, String> FILE_TYPE_MAP = new HashMap<String, String>();
 	static{
 		FILE_TYPE_MAP.put("jpg", "image"); //JPEG (jpg)     

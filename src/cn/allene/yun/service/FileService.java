@@ -66,9 +66,9 @@ public class FileService {
 				if ("office".equals(FileUtils.getFileType(distFile))) {
 					try {
 						String suffix = fileName.substring(fileName.lastIndexOf(".") + 1);
-//						String documentId = FileUtils.getDocClient().createDocument(distFile, fileName, suffix)
-//								.getDocumentId();
-						String documentId = "test";
+						String documentId = FileUtils.getDocClient().createDocument(distFile, fileName, suffix)
+								.getDocumentId();
+//						String documentId = "test";
 						officeDao.addOffice(documentId, FileUtils.MD5(distFile));
 					} catch (Exception e) {
 					}

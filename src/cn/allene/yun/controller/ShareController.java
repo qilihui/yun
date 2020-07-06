@@ -1,18 +1,23 @@
 package cn.allene.yun.controller;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.jasper.tagplugins.jstl.core.ForEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.allene.yun.pojo.FileCustom;
 import cn.allene.yun.pojo.Result;
 import cn.allene.yun.pojo.ShareFile;
 import cn.allene.yun.service.ShareService;
+import cn.allene.yun.utils.PrivateFileException;
 
 @Controller
 public class ShareController {
@@ -29,8 +34,25 @@ public class ShareController {
 		try {
 			List<ShareFile> files = shareService.findShare(request, shareUrl);
 			request.setAttribute("files", files);
+		} catch (PrivateFileException e) {
+			request.setAttribute("shareUrl", shareUrl);
+			System.out.println(e.getMessage());
+			return "privateFile";
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+		return "share";
+	}
+	
+	@RequestMapping("/privateShare")
+	public String privateShare(HttpServletRequest request, String shareUrl, String command){
+		try {
+			List<ShareFile> files = shareService.findShare(request, shareUrl,command);
+			request.setAttribute("files", files);
+		} catch (Exception e) {
+			e.printStackTrace();
+			request.setAttribute("err", e.getMessage());
+			return "error";
 		}
 		return "share";
 	}
@@ -60,11 +82,11 @@ public class ShareController {
 	 * @return
 	 */
 	@RequestMapping("/shareFile")
-	public @ResponseBody Result<String> shareFile(HttpServletRequest request, String currentPath, String[] shareFile){
+	public @ResponseBody Result<Map<String, String>> shareFile(HttpServletRequest request, String currentPath, String[] shareFile,@RequestParam(defaultValue = "false") boolean privateFile){
 		try {
-			String shareUrl = shareService.shareFile(request, currentPath, shareFile);
-			Result<String> result = new Result<>(405, true, "分享成功");
-			result.setData(shareUrl);
+			Map<String, String> map = shareService.shareFile(request, currentPath, shareFile, privateFile);
+			Result<Map<String, String>> result = new Result<>(405, true, "分享成功");
+			result.setData(map);
 			return result;
 		} catch (Exception e) {
 			e.printStackTrace();

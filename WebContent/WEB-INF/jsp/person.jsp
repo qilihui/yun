@@ -150,15 +150,15 @@
 		<div class="right">
 			<div>
 				<center>
-					<from action="/user/updateUser.action" method="post">
+					<form action="${pageContext.request.contextPath }/user/updateUser.action" method="post">
 						<img src="${pageContext.request.contextPath }/img/titalpicture.jpg" height="100px" class="img-circle"
 							style="margin-top:50px;"/>
 						<div style="margin-top:20px">
 							用户名：<input name="username" value="${user.username }" readonly><br/><br/>
-							密&nbsp;&nbsp;&nbsp;码：<input name="password" placeholder="********"><br/><br/>
+							密&nbsp;&nbsp;&nbsp;码：<input name="password" placeholder="********" type="text"><br/><br/>
 							<input type="submit" value="修改密码">
 						</div>
-					</from>
+					</form>
 				</center>
 			</div>
 		</div>

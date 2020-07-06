@@ -126,19 +126,36 @@
 		if(path==null){
 			path = $file.text();
 		}
-		return download(obj, "&downPath="+ escape(path));
+		//$('#input1').val(path);
+		//return download(obj, "&downPath="+ path);
+		return download(obj, path);
 	}
 	/*
 	下载
 	*/
 	function download(obj, path){
 		var url = "file/download.action?";
-		url += ("currentPath=" + encodeURI(currentPath));
-		url += ("&username=" + username);
-		url += path;
-		$(obj).attr("href", url);
-		return true;
+		//url += ("currentPath=" + encodeURI(currentPath));
+		//url += ("&username=" + username);
+		//url += path;
+		//$(obj).attr("href", url);
+		$('#input1').val(path);
+		//$('#input2').val(encodeURI(currentPath));
+		$('#input2').val(currentPath);
+		$('#input3').val(username);
+		//alert(url);
+		$('#downloadForm').attr("action", url);
+		$('#downloadForm').submit();
+		return false;
 	}
+	
+	$(document).ready(function(){
+		$("#xiazai").click(function(){
+			//alert("test");
+			downloadFile(this);
+			return false;
+		});
+	});
 </script>
 </head>
 <body>
@@ -182,8 +199,7 @@
 								<td><input type="checkbox" name="check_name" onclick="selectCheckbox()" aria-label="..."></td>
 								<td><a href="#" fileType="${file.fileType }"
 									path="${file.filePath }" onclick="return preDirectory(this)"><span class="glyphicon glyphicon-${file.fileType }" style="padding-right: 10px"></span>${file.fileName }</a></td>
-								<td><a href="#"
-									class="glyphicon glyphicon-download-alt" onclick="downloadFile(this)" title="下载"></a></td>
+								<td><a href="#" class="glyphicon glyphicon-download-alt" id="xiazai" title="下载"></a></td>
 								<td>${file.fileSize }</td>
 								<td>${file.lastTime }</td>
 							</tr>
@@ -191,6 +207,11 @@
 					</tbody>
 					<form>
 						<input type="hidden" value="${files[0].shareUser }" id="username"/>
+					</form>
+					<form action="#" mothod="get" accept-charset="utf-8" id="downloadForm">
+						<input type="hidden" id="input1" name="downPath">
+						<input type="hidden" id="input2" name="currentPath">
+						<input type="hidden" id="input3" name="username">
 					</form>
 				</table>
 			</div>

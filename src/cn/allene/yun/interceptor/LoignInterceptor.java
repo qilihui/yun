@@ -29,9 +29,10 @@ public class LoignInterceptor implements HandlerInterceptor {
 		String url = request.getRequestURI();
 		if (url.indexOf("authorization_code.action") >= 0 || url.indexOf("login.action") >= 0
 				|| url.indexOf("regist.action") >= 0 || url.indexOf("share.action") >= 0
-				|| url.indexOf("getShareFiles.action") >= 0 || url.indexOf("download.action") >= 0
-				|| url.indexOf("loginForApp.action") >= 0 || url.indexOf("getAppFiles.action") >= 0
-				|| url.indexOf("uploadForApp.action") >= 0 || url.indexOf("getVerifyCode.action")>=0) {
+				|| url.indexOf("privateShare.action") >= 0 || url.indexOf("getShareFiles.action") >= 0
+				|| url.indexOf("download.action") >= 0 || url.indexOf("loginForApp.action") >= 0
+				|| url.indexOf("getAppFiles.action") >= 0 || url.indexOf("uploadForApp.action") >= 0
+				|| url.indexOf("getVerifyCode.action") >= 0) {
 			return true;
 		}
 

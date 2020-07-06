@@ -412,34 +412,78 @@ var currentPath;
 		if($check.length < 1){
 			alert("请选择至少一个");
 		}else{
-			var shareFiles = $check.parent().next().children();
-			var shareFile = new Array();
-			for(var i = 0; i < shareFiles.length; i++){
-				shareFile[i] = $(shareFiles[i]).text();
-			}
-			$.ajax({
-				type:"POST",
-				url:"shareFile.action",
-				data:{
-					"currentPath":currentPath,
-					"shareFile":shareFile
-				},
-				traditional:true
-				,success:function(data){
-					layer.open({
-						  title: '分享',
-						  content: '<input id="url" value="' + joinUrl(data.data) + '" class="form-control" readonly="readonly"/>'
-						  ,btn: ['复制到粘贴板', '返回'],
-						  area: ['500px', '200px']
-						  ,yes: function(index, layero){ 
-						    //按钮【按钮一】的回调
-							  copyUrl($("#url"));
-						  },end: function(index, layero){ 
-							$("input:checkbox").prop("checked", false);  
-						  } 
+			layer.open({
+				title: '分享类型',
+				content: '请选择'
+				,btn: ['私密分享', '公开分享','取消']
+				,btnAlign: 'c'
+				,area: ['300px', '200px']
+				,yes: function(index, layero){ 
+					var shareFiles = $check.parent().next().children();
+					var shareFile = new Array();
+					for(var i = 0; i < shareFiles.length; i++){
+						shareFile[i] = $(shareFiles[i]).text();
+					}
+					$.ajax({
+						type:"POST",
+						url:"shareFile.action",
+						data:{
+							"currentPath":currentPath,
+							"shareFile":shareFile,
+							"privateFile": true
+						},
+						traditional:true
+						,success:function(data){
+							layer.open({
+								  title: '分享',
+								  content: '<input id="url" value="' + joinUrl(data.data.shareUrl) + '" class="form-control" readonly="readonly"/>'+'<input id="url" value="' + data.data.command + '" class="form-control" readonly="readonly"/>'
+								  ,btn: ['复制到粘贴板', '返回'],
+								  area: ['500px', '200px']
+								  ,yes: function(index, layero){ 
+								    //按钮【按钮一】的回调
+									  copyUrl($("#url"));
+								  },end: function(index, layero){ 
+									$("input:checkbox").prop("checked", false);  
+								  } 
+							});
+						}
 					});
+					layer.close(index);
+				},btn2: function(index, layero){
+					var shareFiles = $check.parent().next().children();
+					var shareFile = new Array();
+					for(var i = 0; i < shareFiles.length; i++){
+						shareFile[i] = $(shareFiles[i]).text();
+					}
+					$.ajax({
+						type:"POST",
+						url:"shareFile.action",
+						data:{
+							"currentPath":currentPath,
+							"shareFile":shareFile,
+							"privateFile": false
+						},
+						traditional:true
+						,success:function(data){
+							layer.open({
+								  title: '分享',
+								  content: '<input id="url" value="' + joinUrl(data.data.shareUrl) + '" class="form-control" readonly="readonly"/>'
+								  ,btn: ['复制到粘贴板', '返回'],
+								  area: ['500px', '200px']
+								  ,yes: function(index, layero){ 
+								    //按钮【按钮一】的回调
+									  copyUrl($("#url"));
+								  },end: function(index, layero){ 
+									$("input:checkbox").prop("checked", false);  
+								  } 
+							});
+						}
+					});
+	  			},end: function(){
 				}
 			});
+			
+			
 		}
 		return false;
 	} 
@@ -480,8 +524,11 @@ var currentPath;
 						  opreate += 'class="btn btn-danger">删除</button>';
 					  }else{
 						  opreate += 'class="btn btn-warning">取消</button>';
+							if(order == "2") {
+								opreate +='<input onFocus="copyUrl(this)" title="' + this.command + '" value="' + this.command + '" class="form-control" readonly="readonly"/>';
+							}
 					  }
-					  $("#shareTable tbody").append('<tr><td><span class="glyphicon glyphicon-'+this.fileType+'" style="margin-right: 10px"></span>'+this.fileName+'</td><td>'+this.lastTime+'</td><td><input id="url" onFocus="copyUrl(this)" title="' + joinUrl(this.url) + '" value="' + joinUrl(this.url) + '" class="form-control" readonly="readonly"/></td><td>'+opreate+'</td></tr>');
+					  $("#shareTable tbody").append('<tr><td><span class="glyphicon glyphicon-'+this.fileType+'" style="margin-right: 10px; width:200px; overflow:hidden;">'+this.fileName+'</span></td><td>'+this.lastTime+'</td><td><input id="url" onFocus="copyUrl(this)" title="' + joinUrl(this.url) + '" value="' + joinUrl(this.url) + '" class="form-control" readonly="readonly"/></td><td>'+opreate+'</td></tr>');
 				  });
 				   
 			  }

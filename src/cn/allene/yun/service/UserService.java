@@ -73,6 +73,7 @@ public class UserService {
 	}
 	
 	public void updateUser(User user) {
+		user.setPassword(UserUtils.MD5(user.getPassword()));
 		userDao.updateUser(user);
 	}
 	

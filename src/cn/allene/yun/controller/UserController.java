@@ -303,6 +303,8 @@ public class UserController {
     public String person(HttpServletRequest request, Model model) {
     	HttpSession session = request.getSession();
     	String username = (String) session.getAttribute(User.NAMESPACE);
+		String countSize = userService.getCountSize(username);
+		request.setAttribute("countSize", countSize);
     	User user = userService.findUser(username);
     	model.addAttribute("user", user);
     	return "person";
@@ -311,7 +313,7 @@ public class UserController {
     @RequestMapping("/updateUser")
     public String updateUser(User user) {
     	userService.updateUser(user);
-    	return "login";
+    	return "index";
     }
     
     @RequestMapping("/deleteUser")

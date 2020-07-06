@@ -3,11 +3,25 @@
 <mapper namespace="cn.allene.yun.dao.ShareDao" >
 	
 	<select id="findShare" parameterType="cn.allene.yun.pojo.Share" resultType="cn.allene.yun.pojo.Share">
-		select * from share where shareUrl = #{shareUrl} and status = #{status}
+		select * from share where shareUrl = #{shareUrl} and (status = 1 or status = 2)
 	</select>
 	
 	<insert id="shareFile" parameterType="cn.allene.yun.pojo.Share" >
-		insert into share(shareUrl, path, shareUser) values(#{shareUrl},#{path},#{shareUser})
+		insert into share(shareUrl, path, shareUser
+		<if test="status != null and status != '' ">
+			, status
+		</if>
+		<if test="command != null and command != '' ">
+			, command
+		</if>
+		) values(#{shareUrl},#{path},#{shareUser}
+		<if test="status != null and status != '' ">
+			, #{status}
+		</if>
+		<if test="command != null and command != '' ">
+			, #{command}
+		</if>
+		)
 	</insert>
 	
 	<select id="findShareByName" resultType="cn.allene.yun.pojo.Share">
