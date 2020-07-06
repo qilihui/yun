@@ -550,7 +550,7 @@ var currentPath;
 		var fileName = $(obj).text();
 		var parentPath = $(obj).attr("currentPath") == null ? currentPath : $(obj).attr("currentPath");
 		var url = encodeURI('currentPath='+parentPath+'&fileType='+fileType+'&fileName='+fileName);
-		alert(url);
+		//alert(url);
 		if (fileType == "folder-open") {
 			var prePath = $(obj).attr("prePath");
 			var path = prePath + "\\" + fileName;

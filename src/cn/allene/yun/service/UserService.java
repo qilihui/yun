@@ -22,9 +22,13 @@ public class UserService {
 			return null;
 		}
 	}
-	
-	public boolean addUser(User user){
+
+	public boolean addUser(User user) {
 		try {
+			User findUserByUserName = userDao.findUserByUserName(user.getUsername());
+			if(findUserByUserName != null) {
+				throw new Exception("用户名已存在");
+			}
 			user.setPassword(UserUtils.MD5(user.getPassword()));
 			userDao.addUser(user);
 		} catch (Exception e) {
@@ -44,8 +48,20 @@ public class UserService {
 		}
 		return user;
 	}
-	
-	public String getCountSize(String username){
+
+	public User findUser(String username, Integer githubId) {
+		User user = null;
+		try {
+			System.out.println(username + "  " + githubId);
+			user = userDao.findUserByUserNameAndGithubId(username, githubId);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return user;
+		}
+		return user;
+	}
+
+	public String getCountSize(String username) {
 		String countSize = null;
 		try {
 			countSize = userDao.getCountSize(username);
