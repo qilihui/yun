@@ -69,6 +69,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 			<!-- 				<a href="#" class="a_login">登录遇到问题</a> <a class="a_login" href="#" -->
 			<!-- 					id="phone">海外手机号</a> -->
 			<!-- 			</div> -->
+			<%-- <span style="color:red;margin-left: 20px; display: block;">${msg }</span> --%>
 			<div id="bottom">
 				<div id="inner">
 					<div class="img-login">

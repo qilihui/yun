@@ -50,7 +50,7 @@ public class ShareController {
 			List<ShareFile> files = shareService.findShare(request, shareUrl,command);
 			request.setAttribute("files", files);
 		} catch (Exception e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 			request.setAttribute("err", e.getMessage());
 			return "error";
 		}

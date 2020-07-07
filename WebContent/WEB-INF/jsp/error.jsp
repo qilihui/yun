@@ -13,7 +13,7 @@ html, body {
 	padding: 0;
 }
 
-div {
+#msg {
 	width: 800px;
 	height: 500px;
 	margin: 0 auto; /*水平居中*/
@@ -22,11 +22,30 @@ div {
 	margin-top: -150px;
 	text-align: center;
 }
+
+#ret {
+	width: 200px;
+	margin: 0px auto; /*水平居中*/
+}
 </style>
 </head>
 <body>
-<div>
-${err}
-</div>
+	<div id="ret">
+		<h3>
+			<span id="miao">3</span>秒后返回上一页
+		</h3>
+	</div>
+	<div id="msg">${err}</div>
 </body>
+<script>
+	window.onload = function() {
+		setTimeout("history.back()", 3000);
+	}
+	var i = 3;
+	change();
+	function change() {
+		setTimeout("change()",1000);
+		document.getElementById("miao").innerText = i--;
+	}
+</script>
 </html>
