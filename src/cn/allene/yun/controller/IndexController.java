@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import cn.allene.yun.pojo.User;
 import cn.allene.yun.service.FileService;
 import cn.allene.yun.service.UserService;
 import cn.allene.yun.utils.UserUtils;
@@ -22,8 +23,10 @@ public class IndexController {
 	@RequestMapping("/index")
 	public String index(HttpServletRequest request){
 		String username = UserUtils.getUsername(request);
-		String countSize = userService.getCountSize(username);
-		request.setAttribute("countSize", countSize);
+		User user = userService.findUser(username);
+		//String countSize = userService.getCountSize(username);
+		request.setAttribute("countSize", user.getCountSize());
+		request.setAttribute("totalSize", user.getTotalSize());
 		return "index";
 	}
 }

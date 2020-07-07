@@ -46,7 +46,7 @@
 					<li class="dropdown" style="width:100px">
 					<a href="#" class="dropdown-toggle" id="user" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 					<img src="${pageContext.request.contextPath }/img/titalpicture.jpg" height="20px" class="img-circle"/>
-					<span id="view">${username}</span> <span class="caret"></span></a>
+					<span id="view">${user.username}</span> <span class="caret"></span></a>
 					<ul class="dropdown-menu">
 						<li><a href="user/logout.action">退出登录</a></li>
 					</ul></li>
@@ -127,7 +127,7 @@
 			    60%
 			  </div>
 			</div>
-			<span id="countSize">${countSize }</span>/<span id="totalSize">${totalSize }</span>
+			<span id="countSize">${user.countSize }</span>/<span id="totalSize">${user.totalSize }</span>
 			<div
 				style="margin-top: 10px;word-break:keep-all;white-space:nowrap;overflow:hidden;">
 				<span style="display: inline-block;width: 24%;"><a

@@ -303,8 +303,8 @@ public class UserController {
     public String person(HttpServletRequest request, Model model) {
     	HttpSession session = request.getSession();
     	String username = (String) session.getAttribute(User.NAMESPACE);
-		String countSize = userService.getCountSize(username);
-		request.setAttribute("countSize", countSize);
+//		String countSize = userService.getCountSize(username);
+//		request.setAttribute("countSize", countSize);
     	User user = userService.findUser(username);
     	model.addAttribute("user", user);
     	return "person";
@@ -329,6 +329,6 @@ public class UserController {
     	HttpSession session = request.getSession();
     	String username = (String) session.getAttribute(User.NAMESPACE);
     	userService.upperUser(username);
-    	return "index";
+    	return "redirect:/index.action";
     }
 }
