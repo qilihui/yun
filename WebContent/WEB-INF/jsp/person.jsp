@@ -153,6 +153,7 @@
 					<form action="${pageContext.request.contextPath }/user/updateUser.action" method="post">
 						<img src="${pageContext.request.contextPath }/img/titalpicture.jpg" height="100px" class="img-circle"
 							style="margin-top:50px;"/>
+						<div id="upper"></div>
 						<div style="margin-top:20px">
 							用户名：<input name="username" value="${user.username }" readonly><br/><br/>
 							密&nbsp;&nbsp;&nbsp;码：<input name="password" placeholder="********" type="text"><br/><br/>
@@ -167,8 +168,12 @@
 </body>
 	<script>
 			$(document).ready(function(){
-				if($("#totalSize").text() == "100G")
-				   		$("#view").css("color","red");
+				var upper = document.getElementById("upper");
+				if($("#totalSize").text() == "100G"){
+			   		$("#view").css("color","red");
+			   		upper.innerHTML = "您是尊贵的VIP会员";
+			   		$("#upper").css("color","red");
+					}
 				});
 	</script>
 </html>
