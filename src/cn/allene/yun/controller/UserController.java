@@ -323,4 +323,12 @@ public class UserController {
     	userService.deleteUser(username);
     	return "login";
     }
+    
+    @RequestMapping("upperUser")
+    public String upperUser(HttpServletRequest request) {
+    	HttpSession session = request.getSession();
+    	String username = (String) session.getAttribute(User.NAMESPACE);
+    	userService.upperUser(username);
+    	return "index";
+    }
 }

@@ -46,7 +46,7 @@
 					<li class="dropdown" style="width:100px">
 					<a href="#" class="dropdown-toggle" id="user" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 					<img src="${pageContext.request.contextPath }/img/titalpicture.jpg" height="20px" class="img-circle"/>
-					${username	 } <span class="caret"></span></a>
+					<span id="view">${username}</span> <span class="caret"></span></a>
 					<ul class="dropdown-menu">
 						<li><a href="user/logout.action">退出登录</a></li>
 					</ul></li>
@@ -88,13 +88,13 @@
 				</li>
 
 				<li style="width: 100%; height: 38px;padding: 0px;margin: 0px;">
-					<a onclick="return searchFileType('file')"
+					<a href="user/upperUser.action"
 					style="display: inline-block;width: 179px;height: 38px;padding: 0px 0px 0px 15px;position: relative;vertical-align:middle; line-height: 38px;text-decoration: none;">
 						<span
 						style="width: 38px;height: 38px;display: inline-block;text-align: center;">
 							<span class="glyphicon glyphicon-file"
 							style="visibility: hidden;"></span>
-					</span> <span style="display: inline-block;text-align: left;">身份验证</span>
+					</span> <span style="display: inline-block;text-align: left;">升级会员</span>
 				</a>
 				</li>
 
@@ -165,4 +165,10 @@
 	</div>
 	<%@include file="tab.jsp" %>
 </body>
+	<script>
+			$(document).ready(function(){
+				if($("#totalSize").text() == "100G")
+				   		$("#view").css("color","red");
+				});
+	</script>
 </html>

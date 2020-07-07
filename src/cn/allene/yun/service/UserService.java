@@ -80,4 +80,8 @@ public class UserService {
 	public void deleteUser(String username) {
 		userDao.deleteUser(username);
 	}
+	
+	public void upperUser(String username) {
+		userDao.upperUser(username);
+	}
 }

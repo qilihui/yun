@@ -16,7 +16,7 @@
 				<li class="dropdown" style="width:100px">
 					<a href="#" class="dropdown-toggle" id="user" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 					<img src="${pageContext.request.contextPath }/img/titalpicture.jpg" height="20px" class="img-circle"/>
-					${username	 } <span class="caret"></span></a>
+					<span id="view">${username}</span> <span class="caret"></span></a>
 					<ul class="dropdown-menu">
 						<li><a href="user/person.action">个人中心</a></li>
 						<li><a href="user/logout.action">退出登录</a></li>
@@ -29,3 +29,9 @@
 		</div>
 	</div>
 	</nav>
+	<script>
+	$(document).ready(function(){
+		if($("#totalSize").text() == "100G")
+		   		$("#view").css("color","red");
+		});
+	</script>

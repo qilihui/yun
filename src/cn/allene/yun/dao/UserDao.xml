@@ -40,4 +40,8 @@
 	<delete id="deleteUser" parameterType="String">
 		delete from user where username=#{username}
 	</delete>
+	
+	<update id="upperUser" parameterType="String">
+		update user set totalSize="100G" where username=#{username}
+	</update>
 </mapper>
