@@ -26,7 +26,10 @@ import cn.allene.yun.pojo.FileCustom;
 import cn.allene.yun.pojo.RecycleFile;
 import cn.allene.yun.pojo.Result;
 import cn.allene.yun.pojo.SummaryFile;
+import cn.allene.yun.pojo.User;
 import cn.allene.yun.service.FileService;
+import cn.allene.yun.service.UserService;
+import cn.allene.yun.utils.UserUtils;
 import net.sf.json.JSONObject;
 
 @Controller
@@ -37,6 +40,8 @@ public class FileController {
 
 	@Autowired
 	private FileService fileService;
+	@Autowired
+	private UserService userService;
 
 	/**
 	 * 文件上传
@@ -418,14 +423,17 @@ public class FileController {
 
 	/*--存储回收站所有删除文件信息，并返回给recycle.jsp--*/
 	@RequestMapping("/recycleFile")
-	public String recycleFile(Model model) {
+	public String recycleFile(Model model,HttpServletRequest request) {
 		try {
 			List<RecycleFile> findDelFile = fileService.recycleFiles(request);
 			// 返回的删除文件若没有，则不设置findDelFile
 			if (null != findDelFile && findDelFile.size() != 0) {
 				request.setAttribute("findDelFile", findDelFile);
 			}
+			String username = UserUtils.getUsername(request);
+			User user = userService.findUser(username);
 			model.addAttribute("countSize", fileService.getRecycleSize(request));
+			model.addAttribute("totalSize", user.getTotalSize());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
